@@ -12,6 +12,9 @@ For details about compatibility between different releases, see the **Commitment
 ### Added
 
 - API and CLI commands for listing, searching for and restoring recently deleted applications, OAuth clients, gateways, organizations and users.
+- Gateway Server forwards `TxAck` packets to the Network Server.
+  - A `gs.down.tx.ack.forward` event is emitted when forwarding a TxAck to the Network Server is successful.
+  - A `gs.down.tx.ack.drop` event is emitted when forwarding a TxAck to the Network Server fails.
 
 ### Changed
 
@@ -48,6 +51,10 @@ For details about compatibility between different releases, see the **Commitment
   - The Device Repository database is bundled automatically into Docker release images. See the `ttn-lw-stack dr-db init` command to manually fetch the latest changes.
 - Device repository service to the JavaScript SDK.
 - Choosing array representation for end device session keys as well as gateway EUI.
+- Profile settings view to the Account App.
+  - Functionality to change basic profile information, such as name, email address and profile picture.
+  - Functionality to update the account password.
+  - Functionality to delete the account.
 
 ### Changed
 
