@@ -4461,6 +4461,19 @@
           ]
         }
       ]
+    },
+    "TransferUserRights": {
+      "file": "lorawan-stack/api/user_services.proto",
+      "http": [
+        {
+          "method": "post",
+          "pattern": "/users/{sender_ids.user_id}/transfer/{receiver_ids.user_id}",
+          "parameters": [
+            "sender_ids.user_id",
+            "receiver_ids.user_id"
+          ]
+        }
+      ]
     }
   },
   "UserSessionRegistry": {

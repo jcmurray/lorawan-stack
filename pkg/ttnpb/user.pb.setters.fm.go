@@ -493,6 +493,53 @@ func (dst *UpdateUserPasswordRequest) SetFields(src *UpdateUserPasswordRequest, 
 	return nil
 }
 
+func (dst *TransferUserRightsRequest) SetFields(src *TransferUserRightsRequest, paths ...string) error {
+	for name, subs := range _processPaths(paths) {
+		switch name {
+		case "sender_ids":
+			if len(subs) > 0 {
+				var newDst, newSrc *UserIdentifiers
+				if src != nil {
+					newSrc = &src.SenderIds
+				}
+				newDst = &dst.SenderIds
+				if err := newDst.SetFields(newSrc, subs...); err != nil {
+					return err
+				}
+			} else {
+				if src != nil {
+					dst.SenderIds = src.SenderIds
+				} else {
+					var zero UserIdentifiers
+					dst.SenderIds = zero
+				}
+			}
+		case "receiver_ids":
+			if len(subs) > 0 {
+				var newDst, newSrc *UserIdentifiers
+				if src != nil {
+					newSrc = &src.ReceiverIds
+				}
+				newDst = &dst.ReceiverIds
+				if err := newDst.SetFields(newSrc, subs...); err != nil {
+					return err
+				}
+			} else {
+				if src != nil {
+					dst.ReceiverIds = src.ReceiverIds
+				} else {
+					var zero UserIdentifiers
+					dst.ReceiverIds = zero
+				}
+			}
+
+		default:
+			return fmt.Errorf("invalid field: '%s'", name)
+		}
+	}
+	return nil
+}
+
 func (dst *ListUserAPIKeysRequest) SetFields(src *ListUserAPIKeysRequest, paths ...string) error {
 	for name, subs := range _processPaths(paths) {
 		switch name {

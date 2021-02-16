@@ -1565,6 +1565,24 @@
       "file": "end_devices.go"
     }
   },
+  "error:cmd/ttn-lw-cli/commands:no_receiver_id": {
+    "translations": {
+      "en": "no receiver ID set"
+    },
+    "description": {
+      "package": "cmd/ttn-lw-cli/commands",
+      "file": "users.go"
+    }
+  },
+  "error:cmd/ttn-lw-cli/commands:no_sender_id": {
+    "translations": {
+      "en": "no sender ID set"
+    },
+    "description": {
+      "package": "cmd/ttn-lw-cli/commands",
+      "file": "users.go"
+    }
+  },
   "error:cmd/ttn-lw-cli/commands:no_template_format_id": {
     "translations": {
       "en": "no template format ID set"
@@ -5066,6 +5084,15 @@
       "file": "registry_search.go"
     }
   },
+  "error:pkg/identityserver:sender_receiver_equal": {
+    "translations": {
+      "en": "sender_id and receiver_id cannot be equal"
+    },
+    "description": {
+      "package": "pkg/identityserver",
+      "file": "user_registry.go"
+    }
+  },
   "error:pkg/identityserver:temporary_password_expired": {
     "translations": {
       "en": "temporary password expired"
@@ -5145,6 +5172,15 @@
     "description": {
       "package": "pkg/identityserver",
       "file": "entity_access.go"
+    }
+  },
+  "error:pkg/identityserver:user_single_entity_owner": {
+    "translations": {
+      "en": "deleting user will make the entities orphans: {list}"
+    },
+    "description": {
+      "package": "pkg/identityserver",
+      "file": "user_registry.go"
     }
   },
   "error:pkg/identityserver:user_suspended": {
@@ -9326,6 +9362,15 @@
   "event:user.purge": {
     "translations": {
       "en": "purge user"
+    },
+    "description": {
+      "package": "pkg/identityserver",
+      "file": "user_registry.go"
+    }
+  },
+  "event:user.transfer.rights": {
+    "translations": {
+      "en": "transfer user entity rights to receiver"
     },
     "description": {
       "package": "pkg/identityserver",
