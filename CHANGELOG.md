@@ -11,6 +11,8 @@ For details about compatibility between different releases, see the **Commitment
 
 ### Added
 
+- Add `TransferOwnedEntityRights` RPC for transfering rights for entities for which user is the only collaborator with full rights.
+
 ### Changed
 
 - `temp` field of the UDP stats message is now type `float32` (pointer).
