@@ -35,6 +35,7 @@ import (
 	"go.thethings.network/lorawan-stack/v3/pkg/ttnpb"
 	"go.thethings.network/lorawan-stack/v3/pkg/unique"
 	"go.thethings.network/lorawan-stack/v3/pkg/validate"
+	"golang.org/x/sync/errgroup"
 )
 
 var (
@@ -81,6 +82,7 @@ var (
 	errPasswordStrengthDigits    = errors.DefineInvalidArgument("password_strength_digits", "need at least `{n}` digit(s)")
 	errPasswordStrengthSpecial   = errors.DefineInvalidArgument("password_strength_special", "need at least `{n}` special character(s)")
 	errAdminsPurgeUsers          = errors.DefinePermissionDenied("admins_purge_users", "users may only be purged by admins")
+	errSenderReceiverEqual       = errors.DefineInvalidArgument("sender_receiver_equal", "sender_id and receiver_id cannot be equal")
 )
 
 func (is *IdentityServer) validatePasswordStrength(ctx context.Context, password string) error {
@@ -673,6 +675,87 @@ func (is *IdentityServer) purgeUser(ctx context.Context, ids *ttnpb.UserIdentifi
 	return ttnpb.Empty, nil
 }
 
+func (is *IdentityServer) transferUserRights(ctx context.Context, req *ttnpb.TransferUserRightsRequest) (*types.Empty, error) {
+	if err := rights.RequireUser(ctx, req.SenderIds, ttnpb.RIGHT_USER_ALL); err != nil {
+		return nil, err
+	}
+	if req.SenderIds.GetUserID() == req.ReceiverIds.GetUserID() {
+		return nil, errSenderReceiverEqual
+	}
+
+	ouIDs := req.ReceiverIds.OrganizationOrUserIdentifiers()
+
+	var (
+		g                  errgroup.Group
+		applicationRights  []entityRights
+		clientRights       []entityRights
+		gatewayRights      []entityRights
+		organizationRights []entityRights
+	)
+	g.Go(func() (err error) {
+		applicationRights, err = is.userApplicationRightsAfterTransfer(ctx, req)
+		return err
+	})
+	g.Go(func() (err error) {
+		clientRights, err = is.userClientRightsAfterTransfer(ctx, req)
+		return err
+	})
+	g.Go(func() (err error) {
+		gatewayRights, err = is.userGatewayRightsAfterTransfer(ctx, req)
+		return err
+	})
+	g.Go(func() (err error) {
+		organizationRights, err = is.userOrganizationRightsAfterTransfer(ctx, req)
+		return err
+	})
+	if err := g.Wait(); err != nil {
+		return nil, err
+	}
+
+	receiverRights := make([]entityRights, 0, len(applicationRights)+len(clientRights)+len(gatewayRights)+len(organizationRights))
+	receiverRights = append(receiverRights, applicationRights...)
+	receiverRights = append(receiverRights, clientRights...)
+	receiverRights = append(receiverRights, gatewayRights...)
+	receiverRights = append(receiverRights, organizationRights...)
+
+	err := is.withDatabase(ctx, func(db *gorm.DB) error {
+		var err error
+		for _, entityRights := range receiverRights {
+			err = store.GetMembershipStore(db).SetMember(
+				ctx,
+				ouIDs,
+				entityRights.ids,
+				entityRights.rights,
+			)
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	for _, entityRights := range receiverRights {
+		entityIDs := entityRights.ids.EntityIdentifiers()
+		collaborator := ttnpb.Collaborator{
+			OrganizationOrUserIdentifiers: *ouIDs,
+			Rights:                        entityRights.rights.GetRights(),
+		}
+		// TODO: events.Publish(evtUpdate[Entity]Collaborator.NewWithIdentifiersAndData(ctx, ttnpb.CombineIdentifiers(entityIDs, collaborator), nil))
+		err = is.SendContactsEmail(ctx, entityIDs, func(data emails.Data) email.MessageData {
+			data.SetEntity(entityIDs)
+			return &emails.CollaboratorChanged{Data: data, Collaborator: collaborator}
+		})
+		if err != nil {
+			log.FromContext(ctx).WithError(err).Error("Could not send collaborator updated notification email")
+		}
+	}
+
+	return ttnpb.Empty, nil
+}
+
 type userRegistry struct {
 	*IdentityServer
 }
@@ -707,4 +790,8 @@ func (ur *userRegistry) Delete(ctx context.Context, req *ttnpb.UserIdentifiers) 
 
 func (ur *userRegistry) Purge(ctx context.Context, req *ttnpb.UserIdentifiers) (*types.Empty, error) {
 	return ur.purgeUser(ctx, req)
+}
+
+func (ur *userRegistry) TransferUserRights(ctx context.Context, req *ttnpb.TransferUserRightsRequest) (*types.Empty, error) {
+	return ur.transferUserRights(ctx, req)
 }

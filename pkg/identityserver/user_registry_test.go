@@ -339,6 +339,14 @@ func TestUsersCRUD(t *testing.T) {
 			a.So(*afterUpdate.PasswordUpdatedAt, should.HappenAfter, passwordUpdateTime)
 		}
 
+		adminUser, _ := population.Users[adminUserIdx], userCreds(adminUserIdx)
+		_, err = reg.TransferUserRights(ctx, &ttnpb.TransferUserRightsRequest{
+			SenderIds:   user.UserIdentifiers,
+			ReceiverIds: adminUser.UserIdentifiers,
+		}, creds)
+
+		a.So(err, should.BeNil)
+
 		_, err = reg.Delete(ctx, &user.UserIdentifiers, creds)
 
 		a.So(err, should.BeNil)
