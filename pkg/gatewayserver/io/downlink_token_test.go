@@ -15,12 +15,12 @@
 package io
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
 	"github.com/smartystreets/assertions"
 	"go.thethings.network/lorawan-stack/v3/pkg/ttnpb"
-	"go.thethings.network/lorawan-stack/v3/pkg/util/test"
 	"go.thethings.network/lorawan-stack/v3/pkg/util/test/assertions/should"
 )
 
@@ -32,7 +32,10 @@ func TestDownlinkTokens(t *testing.T) {
 	all := []uint16{}
 	for i := 0; i < downlinkTokenItems*2; i++ {
 
-		msgs = append(msgs, ttnpb.NewPopulatedDownlinkMessage(test.Randy, true))
+		msgs = append(msgs, &ttnpb.DownlinkMessage{
+			RawPayload:     []byte{byte(i)},
+			CorrelationIDs: []string{fmt.Sprintf("corr_%d", i)},
+		})
 		all = append(all, tokens.Next(msgs[i], time.Unix(int64(i), 0)))
 
 		for j, token := range all {
@@ -53,13 +56,21 @@ func TestDownlinkTokens(t *testing.T) {
 func TestCorrelationIDs(t *testing.T) {
 	tokens := DownlinkTokens{}
 
-	token := tokens.Next(ttnpb.NewPopulatedDownlinkMessage(test.Randy, true), time.Now())
+	msg := &ttnpb.DownlinkMessage{
+		RawPayload:     []byte{0x00, 0x01},
+		CorrelationIDs: []string{"cid_downlink"},
+	}
+	token := tokens.Next(msg, time.Now())
 	cid := tokens.FormatCorrelationID(token)
 	parsedToken, ok := tokens.ParseTokenFromCorrelationIDs([]string{"cid:before", cid, "cid:after"})
 
 	a := assertions.New(t)
 	a.So(ok, should.BeTrue)
 	a.So(parsedToken, should.Equal, token)
+
+	matched, _, ok := tokens.Get(parsedToken, time.Now())
+	a.So(ok, should.BeTrue)
+	a.So(matched, should.Resemble, msg)
 
 	_, ok = tokens.ParseTokenFromCorrelationIDs([]string{"cid1", "cid2"})
 	a.So(ok, should.BeFalse)
