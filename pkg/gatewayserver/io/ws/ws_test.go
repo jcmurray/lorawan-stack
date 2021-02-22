@@ -1277,7 +1277,7 @@ func TestRTT(t *testing.T) {
 					select {
 					case ack := <-gsConn.TxAck():
 						if ack.Result != ttnpb.TxAcknowledgment_SUCCESS {
-							t.Fatalf("Tx Acknowledgement failed")
+							t.Fatalf("Tx Acknowledgment failed")
 						}
 					case <-time.After(timeout):
 						t.Fatalf("Read message timeout")

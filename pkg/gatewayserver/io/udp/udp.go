@@ -144,7 +144,7 @@ func (s *srv) handlePackets() {
 			switch packet.PacketType {
 			case encoding.PullData, encoding.PushData:
 				if err := s.writeAckFor(packet); err != nil {
-					logger.WithError(err).Warn("Failed to write acknowledgement")
+					logger.WithError(err).Warn("Failed to write acknowledgment")
 				}
 			}
 
@@ -281,7 +281,7 @@ func (s *srv) handleUp(ctx context.Context, state *state, packet encoding.Packet
 	case encoding.TxAck:
 		atomic.StoreInt64(&state.lastSeenPull, now.UnixNano())
 		if atomic.CompareAndSwapUint32(&state.receivedTxAck, 0, 1) {
-			logger.Debug("Received Tx acknowledgement, JIT queue supported")
+			logger.Debug("Received Tx acknowledgment, JIT queue supported")
 		}
 		var msg *ttnpb.GatewayUp
 		if packet.Data.TxPacketAck != nil {
@@ -305,7 +305,7 @@ func (s *srv) handleUp(ctx context.Context, state *state, packet encoding.Packet
 			rtt = &delta
 		}
 		if err := state.io.HandleTxAck(msg.TxAcknowledgment); err != nil {
-			logger.WithError(err).Warn("Failed to handle Tx acknowledgement")
+			logger.WithError(err).Warn("Failed to handle Tx acknowledgment")
 		}
 		if rtt != nil {
 			state.io.RecordRTT(*rtt, packet.ReceivedAt)

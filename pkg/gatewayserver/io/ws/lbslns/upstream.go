@@ -415,7 +415,7 @@ func (conf TxConfirmation) ToTxAck(ctx context.Context, tokens io.DownlinkTokens
 		txAck.Result = ttnpb.TxAcknowledgment_SUCCESS
 	} else {
 		logger := log.FromContext(ctx)
-		logger.WithField("diid", conf.Diid).Debug("Tx acknowledgement either does not correspond to a downlink message or arrived too late")
+		logger.WithField("diid", conf.Diid).Debug("Tx acknowledgment either does not correspond to a downlink message or arrived too late")
 	}
 	return &txAck
 }

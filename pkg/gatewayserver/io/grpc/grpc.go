@@ -141,7 +141,7 @@ func (s *impl) LinkGateway(link ttnpb.GtwGs_LinkGatewayServer) error {
 					}
 				}
 				if err := conn.HandleTxAck(ack); err != nil {
-					logger.WithError(err).Warn("Failed to handle Tx acknowledgement")
+					logger.WithError(err).Warn("Failed to handle Tx acknowledgment")
 				}
 			}
 		}
