@@ -713,13 +713,13 @@ func (gs *GatewayServer) handleUpstream(conn connectionEntry) {
 			registerReceiveStatus(ctx, gtw, msg, protocol)
 		case msg := <-conn.TxAck():
 			ctx = events.ContextWithCorrelationID(ctx, fmt.Sprintf("gs:tx_ack:%s", events.NewCorrelationID()))
+			if d := msg.DownlinkMessage; d != nil {
+				d.CorrelationIDs = append(d.CorrelationIDs, events.CorrelationIDsFromContext(ctx)...)
+			}
 			if msg.Result == ttnpb.TxAcknowledgment_SUCCESS {
 				registerSuccessDownlink(ctx, gtw, protocol)
 			} else {
 				registerFailDownlink(ctx, gtw, msg, protocol)
-			}
-			if d := msg.DownlinkMessage; d != nil {
-				d.CorrelationIDs = append(d.CorrelationIDs, events.CorrelationIDsFromContext(ctx)...)
 			}
 			val = msg
 		}
