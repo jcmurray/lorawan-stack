@@ -12,7 +12,7 @@ For details about compatibility between different releases, see the **Commitment
 ### Added
 
 - API and CLI commands for listing, searching for and restoring recently deleted applications, OAuth clients, gateways, organizations and users.
-- Gateway Server forwards `TxAck` packets to the Network Server.
+- Gateway Server forwards Tx Acknowlegdment packets to the Network Server for scheduled downlinks. These can be used by the Network Server to forward `downlink_ack` upstream messages to the Application Server.
   - A `gs.down.tx.ack.forward` event is emitted when forwarding a TxAck to the Network Server is successful.
   - A `gs.down.tx.ack.drop` event is emitted when forwarding a TxAck to the Network Server fails.
 

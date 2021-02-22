@@ -24994,7 +24994,7 @@
           "methods": [
             {
               "name": "HandleUplink",
-              "description": "HandleUplink forwards an uplink message to the Network Server.",
+              "description": "Called by the Gateway Server when an uplink message arrives.",
               "requestType": "UplinkMessage",
               "requestLongType": "UplinkMessage",
               "requestFullType": "ttn.lorawan.v3.UplinkMessage",
@@ -25006,7 +25006,7 @@
             },
             {
               "name": "ReportTxAcknowledgment",
-              "description": "ReportTxAcknowledgment forwards a TxAcknowledgment packet to the Network Server.",
+              "description": "Called by the Gateway Server when a tx acknowledgment arrives.",
               "requestType": "GatewayTxAcknowledgment",
               "requestLongType": "GatewayTxAcknowledgment",
               "requestFullType": "ttn.lorawan.v3.GatewayTxAcknowledgment",

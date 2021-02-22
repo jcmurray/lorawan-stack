@@ -6025,8 +6025,8 @@ The GsNs service connects a Gateway Server to a Network Server.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| `HandleUplink` | [`UplinkMessage`](#ttn.lorawan.v3.UplinkMessage) | [`.google.protobuf.Empty`](#google.protobuf.Empty) | HandleUplink forwards an uplink message to the Network Server. |
-| `ReportTxAcknowledgment` | [`GatewayTxAcknowledgment`](#ttn.lorawan.v3.GatewayTxAcknowledgment) | [`.google.protobuf.Empty`](#google.protobuf.Empty) | ReportTxAcknowledgment forwards a TxAcknowledgment packet to the Network Server. |
+| `HandleUplink` | [`UplinkMessage`](#ttn.lorawan.v3.UplinkMessage) | [`.google.protobuf.Empty`](#google.protobuf.Empty) | Called by the Gateway Server when an uplink message arrives. |
+| `ReportTxAcknowledgment` | [`GatewayTxAcknowledgment`](#ttn.lorawan.v3.GatewayTxAcknowledgment) | [`.google.protobuf.Empty`](#google.protobuf.Empty) | Called by the Gateway Server when a tx acknowledgment arrives. |
 
 ### <a name="ttn.lorawan.v3.Ns">Service `Ns`</a>
 

@@ -47,9 +47,9 @@ service AsNs {
 
 // The GsNs service connects a Gateway Server to a Network Server.
 service GsNs {
-  // HandleUplink forwards an uplink message to the Network Server.
+  // Called by the Gateway Server when an uplink message arrives.
   rpc HandleUplink(UplinkMessage) returns (google.protobuf.Empty);
-  // ReportTxAcknowledgment forwards a TxAcknowledgment packet to the Network Server.
+  // Called by the Gateway Server when a tx acknowledgment arrives.
   rpc ReportTxAcknowledgment(GatewayTxAcknowledgment) returns (google.protobuf.Empty);
 }
 
