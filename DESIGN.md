@@ -1,56 +1,53 @@
 # The Things Stack for LoRaWAN Design Guidelines
 
-- [The Things Stack for LoRaWAN Design Guidelines](#the-things-stack-for-lorawan-design-guidelines)
-  - [Introduction](#introduction)
-  - [Our Mission](#our-mission)
-  - [Our Audience](#our-audience)
-    - [Hobbyists and Community-Enthusiasts](#hobbyists-and-community-enthusiasts)
-        - [Audience profile](#audience-profile)
-    - [Professionals and Product Developers](#professionals-and-product-developers)
-        - [Audience Profile](#audience-profile-1)
-    - [Researchers and Educators](#researchers-and-educators)
-        - [Audience Profile](#audience-profile-2)
-  - [Design Values](#design-values)
-    - [Facilitate and Enable](#facilitate-and-enable)
-    - [Nurture the Power of LoRaWAN](#nurture-the-power-of-lorawan)
-    - [Open and Decentralized](#open-and-decentralized)
-  - [Design Foundation](#design-foundation)
-    - [Colors](#colors)
-      - [Brand colors](#brand-colors)
-      - [Web UI Colors](#web-ui-colors)
-        - [Shading](#shading)
-    - [Layout Grid](#layout-grid)
-    - [Scale](#scale)
-      - [How We Use Scale for Spacing](#how-we-use-scale-for-spacing)
-      - [Component Scale](#component-scale)
-      - [Layout Scale](#layout-scale)
-      - [A note about typography spacing](#a-note-about-typography-spacing)
-    - [Typography](#typography)
-      - [Typefaces](#typefaces)
-      - [Weights and Line Height](#weights-and-line-height)
-      - [Typographic Scale](#typographic-scale)
-    - [Iconography](#iconography)
-    - [Illustrations](#illustrations)
-    - [Data Visualizations](#data-visualizations)
-  - [Design Patterns](#design-patterns)
-    - [Content and Communication](#content-and-communication)
-      - [Voice and Tone](#voice-and-tone)
-        - [General Considerations](#general-considerations)
-        - [Acknowledgment](#acknowledgment)
-        - [Error Messages](#error-messages)
-        - [Form Validation Messages](#form-validation-messages)
-        - [Action Text](#action-text)
-    - [Forms](#forms)
-  - [Design Principles](#design-principles)
-    - [Web User Interfaces](#web-user-interfaces)
-      - [Handle the Power/Complexity Trade-Off](#handle-the-powercomplexity-trade-off)
-        - [Progressive Disclosure](#progressive-disclosure)
-        - [Sensible Defaults](#sensible-defaults)
-        - [Settings Templates](#settings-templates)
-      - [Divide and Structurize](#divide-and-structurize)
-      - [Recognize Common Activities and Reduce Click-Depth](#recognize-common-activities-and-reduce-click-depth)
-    - [Developer Experience](#developer-experience)
-  - [Our Process](#our-process)
+- [Introduction](#introduction)
+- [Our mission](#our-mission)
+- [Our audience](#our-audience)
+  * [Hobbyists and community-enthusiasts](#hobbyists-and-community-enthusiasts)
+      - [Audience profile](#audience-profile)
+  * [Professionals and Product Developers](#professionals-and-product-developers)
+      - [Audience profile](#audience-profile-1)
+  * [Researchers and educators](#researchers-and-educators)
+      - [Audience profile](#audience-profile-2)
+- [Design Values](#design-values)
+  * [Facilitate and Enable](#facilitate-and-enable)
+  * [Nurture the power of LoRaWAN](#nurture-the-power-of-lorawan)
+  * [Open and Decentralized](#open-and-decentralized)
+- [Design Foundation](#design-foundation)
+  * [Colors](#colors)
+    + [Shading](#shading)
+  * [Layout Grid](#layout-grid)
+  * [Scale](#scale)
+    + [How we use scale for spacing](#how-we-use-scale-for-spacing)
+    + [Component Scale](#component-scale)
+    + [Layout Scale](#layout-scale)
+    + [A note about typography spacing](#a-note-about-typography-spacing)
+  * [Typography](#typography)
+    + [Typefaces](#typefaces)
+    + [Weights and line height](#weights-and-line-height)
+    + [Typographic scale](#typographic-scale)
+  * [Iconography](#iconography)
+  * [Illustrations](#illustrations)
+  * [Data visualizations](#data-visualizations)
+- [Design Patterns](#design-patterns)
+  * [Content and Communication](#content-and-communication)
+    + [Voice and Tone](#voice-and-tone)
+      - [General considerations](#general-considerations)
+      - [Acknowledgement](#acknowledgement)
+      - [Error messages](#error-messages)
+      - [Form validation messages](#form-validation-messages)
+      - [Action text](#action-text)
+  * [Forms](#forms)
+- [Design Principles](#design-principles)
+  * [Web User Interfaces](#web-user-interfaces)
+    + [Handle the power/complexity trade-off](#handle-the-power-complexity-trade-off)
+      - [Progressive disclosure](#progressive-disclosure)
+      - [Sensible defaults](#sensible-defaults)
+      - [Settings Templates](#settings-templates)
+    + [Divide and Structurize](#divide-and-structurize)
+    + [Recognize common activities and reduce click-depth](#recognize-common-activities-and-reduce-click-depth)
+  * [Developer experience](#developer-experience)
+- [Our process](#our-process)
 
 ## Introduction
 
@@ -183,7 +180,7 @@ The console typeface is Source Sans Pro, which is used for all text except code 
 
 #### Weights and Line Height
 
-We use three weights:
+We use three weights:  
 Regular, Semibold, Bold
 
 The line-height for `14px` font-size is `25px`, equaling `1.785rem`.
@@ -233,27 +230,27 @@ The console should assist with textual info that is concise, sober and formal, h
 - Only first-level component names of The Things Stack for LoRaWAN (e.g. `Identity Server`, `Applicaiton Server`, `Console`) are capitalized, otherwise normal sentence case is used
 - Do not shorten `end device` to just `device`
 
-##### Acknowledgment
+##### Acknowledgement
 
-Acknowledgment text increases the users awareness and confidence after an action has been performed successfully. For example after updating an entity, we show a toast notification confirming the success of the action. Keep in mind that by default, toast notifications dismiss themselves after a fixed amount of time (currently 4 seconds), so the text it displays should be as short as possible.
+Acknowledgement text increases the users awareness and confidence after an action has been performed successfully. For example after updating an entity, we show a toast notification confirming the success of the action. Keep in mind that by default, toast notifications dismiss themselves after a fixed amount of time (currently 4 seconds), so the text it displays should be as short as possible.
 
 <img src="https://user-images.githubusercontent.com/5710611/79826969-0fd4cb80-83d8-11ea-9023-2ab90637624d.png" width="300px"/>
 
-Acknowledgment text must
+Acknowledgement text must
 
 - be written in simple past tense
 - use short and unambiguous language
 - have a clear context of which action it was referring to, by mentioning the action and displaying it in temporal and/or spatial proximity of the action
 
 | Do                 | Don't                         | Why?                  |
-| ------------------ | ----------------------------- | --------------------- |
+|--------------------|-------------------------------|-----------------------|
 | End device updated | End device has been updated   | Use simple past tense |
 | Gateway deleted    | Operation successful          | Avoid ambiguity       |
 | Location updated   | Location updated successfully | Use short language    |
 
 ##### Error Messages
 
-Error messages must
+Error messages must 
 
 - be written in simple past tense
 - provide users with a clear description of the problem, if applicable
@@ -264,7 +261,7 @@ Error messages must
 - if possible, not be shown in toasts
 
 | Do                                                         | Don't                                                           | Why?                                         |
-| ---------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------- |
+|------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------|
 | An error occurred and the end device could not be created  | There has been an error and the end device could not be created | Use simple past tense                        |
 | An error occurred and the application could not be deleted | There was an error                                              | State consequences of the failure            |
 | An error occurred and the changes could not be saved       | An error occurred while saving the changes                      | State consequences unambiguously             |
@@ -282,12 +279,12 @@ Form validation messages must
 - reference the field name if applicable
 - use `must` and not `should`
 
-| Do                                                            | Don't                          | Why?                                |
-| ------------------------------------------------------------- | ------------------------------ | ----------------------------------- |
-| Password must match                                           | Passwords should match         | The condition **must** be true      |
-| End device ID is required                                     | Field is required              | Name the subject                    |
-| Name must be less than 1024 characters                        | Name is too long               | Inform about the precise limitation |
-| Latitude must be a whole or decimal number between -90 and 90 | Latitude must be a valid value | Be as specific as possible          |
+| Do                                                            | Don't                          | Why?                                     |
+|---------------------------------------------------------------|--------------------------------|------------------------------------------|
+| Password must match                                           | Passwords should match         | The condition **must** be true           |
+| End device ID is required                                     | Field is required              | Name the subject                         |
+| Name must be less than 1024 characters                        | Name is too long               | Inform about the precise limitation      |
+| Latitude must be a whole or decimal number between -90 and 90 | Latitude must be a valid value | Be as specific as possible               |
 
 
 ##### Action Text
@@ -301,7 +298,7 @@ Action text must
 - not use title case
 
 | Do            | Don't                           | Why?                    |
-| ------------- | ------------------------------- | ----------------------- |
+|---------------|---------------------------------|-------------------------|
 | Create PubSub | Submit                          | Refer to precise action |
 | Start process | Click here to start the process | Be concise              |
 | Save changes  | Save Changes                    | Use sentence case       |
@@ -347,7 +344,7 @@ Progressive disclosure aims to only show advanced settings if the user has (expl
 ##### Sensible Defaults
 
 Instead of explicitly forcing the user to make an input for every possible value, we need to look into defaults that would account for 80% or more of the cases that the value is set. This would help a lot of users that just want to get started without worrying about specifics (for the moment). While the decision about such default values can be delicate, the potential with regards to the UX can be huge.
-![Sensible Defaults](https://user-images.githubusercontent.com/5710611/77146162-c427bd00-6acd-11ea-8ed6-8d262bf8ef23.png)
+![Sensible Defaults](https://user-images.githubusercontent.com/5710611/77146162-c427bd00-6acd-11ea-8ed6-8d262bf8ef23.png) 
 
 ##### Settings Templates
 
