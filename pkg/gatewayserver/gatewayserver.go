@@ -665,9 +665,7 @@ func (gs *GatewayServer) handleUpstream(conn connectionEntry) {
 					}
 				case *ttnpb.TxAcknowledgment:
 					if err := host.handler.HandleTxAck(ctx, gtw.GatewayIdentifiers, msg); err != nil {
-						registerDropTxAck(ctx, gtw, host.name, protocol, err)
-					} else {
-						registerForwardTxAck(ctx, gtw, msg, host.name, protocol)
+						logger.WithField("host", host.name).WithError(err).Debug("Drop TxAck")
 					}
 				}
 			}
