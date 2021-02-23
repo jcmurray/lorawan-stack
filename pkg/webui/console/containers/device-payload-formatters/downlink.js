@@ -100,6 +100,16 @@ class DevicePayloadFormatters extends React.PureComponent {
     })
   }
 
+  @bind
+  async onSubmitSuccess() {
+    const { devId } = this.props
+    toast({
+      title: devId,
+      message: sharedMessages.payloadFormattersUpdateSuccess,
+      type: toast.types.SUCCESS,
+    })
+  }
+
   render() {
     const { formatters } = this.props
 
