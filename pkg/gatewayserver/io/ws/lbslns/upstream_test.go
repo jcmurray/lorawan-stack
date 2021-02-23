@@ -25,7 +25,6 @@ import (
 	"go.thethings.network/lorawan-stack/v3/pkg/errors"
 	"go.thethings.network/lorawan-stack/v3/pkg/ttnpb"
 	"go.thethings.network/lorawan-stack/v3/pkg/types"
-	"go.thethings.network/lorawan-stack/v3/pkg/util/test"
 	"go.thethings.network/lorawan-stack/v3/pkg/util/test/assertions/should"
 )
 
@@ -649,7 +648,10 @@ func TestTxAck(t *testing.T) {
 		Diid:    1,
 		RefTime: 0,
 	}
-	msg := ttnpb.NewPopulatedDownlinkMessage(test.Randy, true)
+	msg := &ttnpb.DownlinkMessage{
+		RawPayload:     []byte{0x00, 0x00},
+		CorrelationIDs: []string{"cid:1", "cid:2"},
+	}
 	var lnsLNS lbsLNS
 	now := time.Now()
 	lnsLNS.tokens.Next(msg, time.Unix(int64(0), 0))
