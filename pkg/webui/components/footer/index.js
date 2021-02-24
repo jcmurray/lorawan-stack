@@ -16,6 +16,8 @@ import React from 'react'
 import classnames from 'classnames'
 import { defineMessages } from 'react-intl'
 
+import LAYOUT from '@ttn-lw/constants/layout'
+
 import Button from '@ttn-lw/components/button'
 import Link from '@ttn-lw/components/link'
 import OfflineStatus from '@ttn-lw/components/offline-status'
@@ -30,6 +32,10 @@ import style from './footer.styl'
 const m = defineMessages({
   footer: "You are the network. Let's build this thing together.",
 })
+
+const isMinimized =
+  Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <=
+  LAYOUT.BREAKPOINTS.XXS
 
 const Footer = ({ className, documentationLink, links, supportLink, onlineStatus }) => (
   <footer className={classnames(className, style.footer)}>
@@ -51,12 +57,18 @@ const Footer = ({ className, documentationLink, links, supportLink, onlineStatus
       <span className={style.version}>v{process.env.VERSION}</span>
       {documentationLink && (
         <Link.Anchor className={style.documentation} secondary href={documentationLink} external>
-          <Message content={sharedMessages.documentation} />
+          <Message
+            content={
+              isMinimized && supportLink
+                ? sharedMessages.documentationAbbreviation
+                : sharedMessages.documentation
+            }
+          />
         </Link.Anchor>
       )}
       {supportLink && (
         <Button.AnchorLink
-          message={sharedMessages.getSupport}
+          message={isMinimized ? null : sharedMessages.getSupport}
           icon="contact_support"
           href={supportLink}
           target="_blank"

@@ -639,6 +639,7 @@
   "lib.shared-messages.disabled": "Disabled",
   "lib.shared-messages.disconnected": "Disconnected",
   "lib.shared-messages.documentation": "Documentation",
+  "lib.shared-messages.documentationAbbreviation": "Doc",
   "lib.shared-messages.downlink": "Downlink",
   "lib.shared-messages.downlinkAck": "Downlink ack",
   "lib.shared-messages.downlinkFailed": "Downlink failed",

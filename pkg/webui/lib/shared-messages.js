@@ -136,6 +136,7 @@ export default defineMessages({
   disabled: 'Disabled',
   disconnected: 'Disconnected',
   documentation: 'Documentation',
+  documentationAbbreviation: 'Doc',
   downlink: 'Downlink',
   downlinkAck: 'Downlink ack',
   downlinkFailed: 'Downlink failed',
