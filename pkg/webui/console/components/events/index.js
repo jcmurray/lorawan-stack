@@ -20,6 +20,7 @@ import hamburgerMenuClose from '@assets/misc/hamburger-menu-close.svg'
 
 import Button from '@ttn-lw/components/button'
 import Icon from '@ttn-lw/components/icon'
+import Link from '@ttn-lw/components/link'
 
 import Message from '@ttn-lw/lib/components/message'
 
@@ -52,6 +53,12 @@ const Events = React.memo(
     const handleEventInfoCloseClick = useCallback(() => {
       setFocus({ eventId: undefined, visible: false })
     }, [])
+
+    const dataFormatsDocumentationLink = (
+      <Link.DocLink secondary path="/docs/reference/data-formats/" title={m.dataFormats}>
+        <Message content={m.dataFormats} />
+      </Link.DocLink>
+    )
 
     return (
       <div className={style.container}>
@@ -115,7 +122,15 @@ const Events = React.memo(
           </div>
           <div className={style.sidebarContent}>
             {Boolean(focus.eventId) && (
-              <EventDetails event={events.find(event => getEventId(event) === focus.eventId)} />
+              <>
+                <EventDetails event={events.find(event => getEventId(event) === focus.eventId)} />
+                <div className={style.dataFormatsInfo}>
+                  <Message
+                    content={m.dataFormatsInformation}
+                    values={{ dataFormatsDocumentationLink }}
+                  />
+                </div>
+              </>
             )}
           </div>
         </section>
