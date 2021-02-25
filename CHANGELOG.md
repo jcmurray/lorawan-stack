@@ -12,6 +12,7 @@ For details about compatibility between different releases, see the **Commitment
 ### Added
 
 - Pagination flags for the `users oauth authorizations list` and `users oauth access-tokens list` CLI commands.
+- `created_at` and `updated_at` fields to API Keys.
 
 ### Changed
 
