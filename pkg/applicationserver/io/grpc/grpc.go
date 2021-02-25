@@ -150,7 +150,12 @@ func (s *impl) GetMQTTConnectionInfo(ctx context.Context, ids *ttnpb.Application
 	}, nil
 }
 
+var errNilApplicationUp = errors.DefineInvalidArgument("nil_application_up", "application upstream message is nil")
+
 func (s *impl) SimulateUplink(ctx context.Context, up *ttnpb.ApplicationUp) (*pbtypes.Empty, error) {
+	if up == nil {
+		return nil, errNilApplicationUp.New()
+	}
 	if err := rights.RequireApplication(ctx, up.ApplicationIdentifiers, ttnpb.RIGHT_APPLICATION_TRAFFIC_UP_WRITE); err != nil {
 		return nil, err
 	}

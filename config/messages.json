@@ -1790,6 +1790,15 @@
       "file": "grpc.go"
     }
   },
+  "error:pkg/applicationserver/io/grpc:nil_application_up": {
+    "translations": {
+      "en": "application upstream message is nil"
+    },
+    "description": {
+      "package": "pkg/applicationserver/io/grpc",
+      "file": "grpc.go"
+    }
+  },
   "error:pkg/applicationserver/io/grpc:no_configuration_provider": {
     "translations": {
       "en": "no MQTT configuration provider available"
